@@ -20,8 +20,6 @@ class MoviesViewModel(
         dispatchState(state = store.state.copy(loading = true))
 
         job = viewModelScope.launch(handlerException) {
-            // run parallel tasks
-            delay(1000)
             val result = showMovieListUseCase.execute()
             dispatchState(state = store.state.copy(loading = false))
             handleResultUsecase(result)

@@ -18,7 +18,6 @@ class MovieDetailViewModel(
         job?.cancel() // cancel all previous job
         dispatchState(state = store.state.copy(loading = true))
         job = viewModelScope.launch(handlerException) {
-            // run parallel tasks
             val result = showMovieDetailUseCase.execute(movieID)
             dispatchState(state = store.state.copy(loading = false))
             handleResultUsecase(result)

@@ -14,12 +14,14 @@ class ShowMovieDetailUseCase(
     override suspend fun execute(movieId: Long): Result<MovieDetail> {
         var result: Result<MovieDetail> = Result.Success(MovieDetail())
         coroutineScope {
+            //run parallel task at the same time - using async to sync/combine state of tasks
             val movieDetailUseCase = async {
                 getMovieDetailUseCase.execute(movieId)
             }
             val actorsUseCase = async {
                 getActorsUseCase.execute(movieId)
             }
+            // get return data
             val movieDetailUseCaseResult = movieDetailUseCase.await()
             val actorsUseCaseResult = actorsUseCase.await()
             if (movieDetailUseCaseResult is Result.Error) {
