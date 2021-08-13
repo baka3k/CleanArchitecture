@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+
+
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}
+
+dependencies {
+
+    implementation project(path: ':domain')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlins.kotlinStdlibJdk7
+    implementation kotlins.kotlinReflect
+    // for test
+    testImplementation testingDependencies.junit
+    androidTestImplementation testingDependencies.extJUnit
+    androidTestImplementation testingDependencies.espresso
+
+    implementation appCompat.appcompat
+    implementation appCompat.core
+    implementation materiaDesign.constraintLayout
+    implementation architectureComponentDependencies.lifecycleViewmodel
+    implementation architectureComponentDependencies.lifecycleRuntimeKTX
+
+    implementation 'com.google.zxing:core:3.3.0'
+    def camerax_version = '1.0.0-beta02'
+    implementation "androidx.camera:camera-core:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    api 'androidx.camera:camera-view:1.0.0-alpha09'
+
+}

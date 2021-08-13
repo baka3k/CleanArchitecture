@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'dagger.hilt.android.plugin'
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+    defaultConfig {
+        applicationId "gdk.com.baka.architecture.clean"
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.incremental"] = "true"
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlins.kotlinStdlibJdk7
+    implementation kotlins.kotlinReflect
+    // for test
+    testImplementation testingDependencies.junit
+    androidTestImplementation testingDependencies.extJUnit
+    androidTestImplementation testingDependencies.espresso
+
+    // module app
+    implementation project(path: ':domain')
+    implementation project(path: ':device')
+    implementation project(path: ':data')
+    // Hilt dependencies
+    implementation di_hilt.hilt
+    kapt di_hilt.hiltAnnoation
+    // glide
+    implementation glideDependency.glide
+    annotationProcessor glideDependency.glideAnnotation
+    kapt glideDependency.glideAnnotation
+    // material design
+    implementation materiaDesign.constraintLayout
+    implementation materiaDesign.recyclerView
+    implementation materiaDesign.swiperefreshlayout
+    implementation materiaDesign.viewPager2
+    implementation materiaDesign.coordinatorlayout
+    // android Architecture component
+    implementation architectureComponentDependencies.navigationFragment
+    implementation architectureComponentDependencies.navigationUI
+    implementation architectureComponentDependencies.navigationModuleSupport
+    implementation architectureComponentDependencies.lifecycleViewmodel
+    implementation architectureComponentDependencies.lifecycleRuntimeKTX
+    implementation architectureComponentDependencies.liveData
+    implementation architectureComponentDependencies.paging
+    // appCompat
+    implementation appCompat.appcompat
+    implementation appCompat.core
+    implementation appCompat.material
+    implementation appCompat.annotation
+//    implementation "androidx.lifecycle.lifecycle-runtime-ktx-2.4.0-alpha01"
+}
