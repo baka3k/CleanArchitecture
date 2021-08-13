@@ -44,7 +44,13 @@ Clean architecture tuân thủ tuyệt đối DI - Dependency Inversion
 ![Dependency Module](ReadmeResources/module.jpeg)
 
 ### Plugins
+#If you want to test project - please create API key from https://developers.themoviedb.org/3/movies
+and add your key in gradle.propeties file
 
+``
+moviedb_access_key="PLACE YOUR KEY IN HERE" 
+``
+### Plugins
 N/A
 
 | Plugin | README | LICENSE
@@ -54,7 +60,7 @@ N/A
 
 ### TO DO
 
-- Add module device: cung cấp các tính năng đặc biệt liên quan đến device : notification, service...etc
+- N/A
 
 License
 ----
