@@ -24,7 +24,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 ``
 
-Thì là quy định **SAI**, Domain phụ thuộc vào framework thì không còn là abstraction layer nữa.
+Thì có thể là **chưa đúng**, Domain phụ thuộc vào framework thì không còn là abstraction layer nữa.
 Domain sẽ bao gồm Entities, use cases, repositories interfaces, device interfaces...(Những thứ thuộc về abstraction)
 Ví dụ, Chuyển tiền từ tài khoản A sang tài khoản B, các step liên quan, các actor liên quan(ở dạng abstraction)
 ## 2. Data
