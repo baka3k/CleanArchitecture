@@ -64,8 +64,8 @@ class CastAdapter(
             )
 
             name.text = actor.name
-//            val urlImage = actor.image
-            val urlImage = data.random()
+            val urlImage = actor.image
+//            val urlImage = data.random()
             Log.d("CastAdapter", "onBindViewHolder $urlImage")
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)

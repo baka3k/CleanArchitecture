@@ -38,14 +38,14 @@ fun MovieDetailResult.toDomainEntity(): MovieDetail {
 
 fun ActorsResult.toDomainEntity(): List<Actor> {
     val list = mutableListOf<Actor>()
-//    crew.forEach {
-//        if (!it.profilePath.isNullOrEmpty() && it.profilePath.endsWith(".jpg")) {
-//            list.add(Actor(it.name, "https://image.tmdb.org/t/p/w200${it.profilePath}]"))
-//        }
-//    }
+    crew.forEach {
+        if (!it.profilePath.isNullOrEmpty() && it.profilePath.endsWith(".jpg")) {
+            list.add(Actor(it.name, "https://image.tmdb.org/t/p/w185${it.profilePath}"))
+        }
+    }
     cast.forEach {
         if (!it.profilePath.isNullOrEmpty() && it.profilePath.endsWith(".jpg")) {
-            list.add(Actor(it.name, "https://image.tmdb.org/t/p/w200${it.profilePath}]"))
+            list.add(Actor(it.name, "https://image.tmdb.org/t/p/w185${it.profilePath}"))
         }
     }
     list.distinctBy { it.name }
