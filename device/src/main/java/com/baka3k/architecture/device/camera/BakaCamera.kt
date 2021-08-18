@@ -28,7 +28,6 @@ class BakaCamera private constructor(
     private val viewFinder: PreviewView,
     private val cameraExecutor: ExecutorService?,
     private val barcodeAnalyzer: BarcodeAnalyzer?,
-//    private val decoder: Decoder? = null
 ) {
     private constructor(builder: Builder) : this(
         builder.lifecycleOwner!!,
@@ -76,6 +75,49 @@ class BakaCamera private constructor(
     }
 
     fun startPreview() {
+        val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
+        Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
+        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
+        Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
+        val rotation = viewFinder.display.rotation
+
+        // Bind the CameraProvider to the LifeCycleOwner
+        val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(viewFinder.context)
+        cameraProviderFuture.addListener({
+            // CameraProvider
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            // Preview
+            preview = Preview.Builder()
+                .setTargetAspectRatio(screenAspectRatio)
+                .setTargetRotation(rotation)
+                .build()
+            imageCapture = ImageCapture.Builder()
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .setTargetAspectRatio(screenAspectRatio)
+                .setTargetRotation(rotation)
+                .build()
+            imageAnalyzer = ImageAnalysis.Builder()
+                .setTargetAspectRatio(screenAspectRatio)
+                .setTargetRotation(rotation)
+                .build()
+            if (barcodeAnalyzer != null && cameraExecutor != null) {
+                imageAnalyzer?.setAnalyzer(cameraExecutor, barcodeAnalyzer)
+            }
+            cameraProvider.unbindAll()
+            try {
+                camera = cameraProvider.bindToLifecycle(
+                    lifecycleOwner, cameraSelector, preview, imageCapture, imageAnalyzer
+                )
+                preview?.setSurfaceProvider(viewFinder.createSurfaceProvider(camera?.cameraInfo))
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(viewFinder.context))
+    }
+
+    fun startPreview(barcodeAnalyzer: BarcodeAnalyzer) {
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
         Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
         val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
