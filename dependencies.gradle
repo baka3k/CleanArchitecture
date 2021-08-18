@@ -82,7 +82,7 @@ ext {
 
     testingDependencies = [
             "junit"   : "junit:junit:$junitVersion",
-            "extJUnit": "ndroidx.test.ext:$runnerVersion",
+            "extJUnit": "androidx.test.ext:$runnerVersion",
             "espresso": "androidx.test.espresso:espresso-core:$espressoVersion"
     ]
 

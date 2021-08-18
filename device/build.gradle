@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -57,4 +56,8 @@ dependencies {
     implementation "androidx.camera:camera-camera2:$camerax_version"
     api 'androidx.camera:camera-view:1.0.0-alpha09'
 
+}
+
+repositories {
+    google()
 }

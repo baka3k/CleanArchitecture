@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'dagger.hilt.android.plugin'
@@ -13,7 +11,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion androidCompileSdkVersion
-    buildToolsVersion androidBuildToolsVersion
+//    buildToolsVersion androidBuildToolsVersion
     defaultConfig {
         applicationId "gdk.com.baka.architecture.clean"
         minSdkVersion androidMinSdkVersion
@@ -80,4 +78,8 @@ dependencies {
     implementation appCompat.material
     implementation appCompat.annotation
 //    implementation "androidx.lifecycle.lifecycle-runtime-ktx-2.4.0-alpha01"
+}
+
+repositories {
+    google()
 }

@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.hardware.display.DisplayManager
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -125,15 +124,11 @@ class CameraFragment : BaseFragment() {
     }
 
     private fun hasPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PERMISSIONS_REQUIRED.all {
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    it
-                ) == PackageManager.PERMISSION_GRANTED
-            }
-        } else {
-            true
+        return PERMISSIONS_REQUIRED.all {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                it
+            ) == PackageManager.PERMISSION_GRANTED
         }
     }
 
@@ -149,12 +144,10 @@ class CameraFragment : BaseFragment() {
 
     private fun startCamera() {
         if (!hasPermission()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    PERMISSIONS_REQUIRED,
-                    PERMISSIONS_REQUEST_CODE
-                )
-            }
+            requestPermissions(
+                PERMISSIONS_REQUIRED,
+                PERMISSIONS_REQUEST_CODE
+            )
         } else {
             startCameraPreview()
         }
