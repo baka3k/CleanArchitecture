@@ -1,23 +1,13 @@
-apply plugin: 'java-library'
-apply plugin: 'kotlin'
-// just Kotlin || java library, to ensure logic is not depend on android framework
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
-buildscript {
-    ext.kotlin_version = '1.5.21'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-}
+
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"

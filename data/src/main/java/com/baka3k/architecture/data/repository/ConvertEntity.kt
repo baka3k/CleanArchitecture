@@ -15,7 +15,7 @@ fun com.baka3k.architecture.data.service.movie.entity.Movie.toDomainEntity() =
         originalTitle = originalTitle,
         overview = overview,
         popularity = popularity,
-        posterPath = "https://image.tmdb.org/t/p/w300/${posterPath}",
+        posterPath = "https://image.tmdb.org/t/p/w300${posterPath}",
         releaseDate = releaseDate,
         title = title,
         video = video,
@@ -32,7 +32,7 @@ fun MovieDetailResult.toDomainEntity(): MovieDetail {
         languge = originalLanguage ?: "",
         rating = "5/10",
         category = "$genres",
-        cover = "https://image.tmdb.org/t/p/w300/${backdropPath}",
+        cover = "https://image.tmdb.org/t/p/w300${backdropPath}",
     )
 }
 

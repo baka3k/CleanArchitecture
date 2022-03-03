@@ -63,7 +63,7 @@ class Service<T>(
             builder.build()
         } else {
             CertificatePinner.Builder()
-                .add("api.themoviedb.org", "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+                .add("api.themoviedb.org", "sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk=")
                 .build() // default
         }
     }

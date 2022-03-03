@@ -1,21 +1,18 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'dagger.hilt.android.plugin'
-
-apply plugin: "androidx.navigation.safeargs.kotlin"
-
-
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+}
 android {
-    compileSdkVersion androidCompileSdkVersion
-//    buildToolsVersion androidBuildToolsVersion
+    compileSdk 32
     defaultConfig {
         applicationId "gdk.com.baka.architecture.clean"
-        minSdkVersion androidMinSdkVersion
-        targetSdkVersion androidTargetSdkVersion
+        minSdkVersion 23
+        targetSdkVersion 32
+
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -52,8 +49,8 @@ dependencies {
     implementation project(path: ':device')
     implementation project(path: ':data')
     // Hilt dependencies
-    implementation di_hilt.hilt
-    kapt di_hilt.hiltAnnoation
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
     // glide
     implementation glideDependency.glide
     annotationProcessor glideDependency.glideAnnotation
@@ -77,7 +74,6 @@ dependencies {
     implementation appCompat.core
     implementation appCompat.material
     implementation appCompat.annotation
-//    implementation "androidx.lifecycle.lifecycle-runtime-ktx-2.4.0-alpha01"
 }
 
 repositories {
